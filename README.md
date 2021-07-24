@@ -19,9 +19,7 @@ This project is a TypeScript introduction to use Supabase for managing content o
 - ***\*No image yet\****
 
 ## To-Do
-- Rename sections of content
-- Supabase Authentication
+- Login
 - Edit Supabase content
 - API Endpoints
 - Connect API to Supabase
-- Styling

@@ -1,0 +1,31 @@
+@use 'sass:list';
+
+@mixin landscape {
+  @media (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin portrait {
+  @media (orientation: portrait) {
+    @content;
+  }
+}
+
+@function getColor($hue, $saturation, $start, $step, $i, $alpha){
+  $ogLightness: $start + $step * $i;
+  $lightness: max(0%, min(100%, $ogLightness));
+  @return hsla($hue, $saturation, $lightness);
+}
+
+@function getWhite($i, $a: 100%) {
+  @return getColor(0, 0%, 90%, 2%, $i, $a);
+}
+
+@function getGreen($i, $a: 100%) {
+  @return getColor(153, 74%, 50%, 2%, $i, $a);
+}
+
+@function getDark($i, $a: 100%) {
+  @return getColor(0, 0%, 10%, 2.5%, $i, $a);
+}

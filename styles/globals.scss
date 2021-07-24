@@ -1,7 +1,14 @@
+@use  'styles/utilities' as *;
+
 html,
 body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+body {
+  color: getWhite(0);
+  background: getDark(0)
 }
 
 a {

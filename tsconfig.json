@@ -18,11 +18,18 @@
       "@Types":[
         "lib/types/types"
       ],
+      "@Auth":[
+        "lib/supabase/AuthHandler"
+      ],
       "@Store":[
         "lib/supabase/StoreHandler"
+      ],
+      "@Components/*":[
+        "components/EndpointsVisualizer/*",
+        "components/JButton/*"
       ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js"],
   "exclude": ["node_modules"]
 }

@@ -1,0 +1,14 @@
+@use 'styles/utilities' as *;
+
+.endpointsVisualizer {
+  @include landscape {
+    width: 75%;
+    margin: 0 auto;
+  }
+
+  .endpointsControllers {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+  }
+}

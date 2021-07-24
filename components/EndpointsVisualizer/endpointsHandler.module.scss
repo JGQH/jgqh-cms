@@ -1,0 +1,27 @@
+@use 'styles/utilities' as *;
+
+.endpointsContainer {
+  padding: 1rem;
+
+  .endpointInfo {
+    .infoTitle {
+      color: getGreen(0);
+      border-bottom: 1px solid;
+      border-image-slice: 1;
+      border-image-source: linear-gradient(to left, getGreen(0), getGreen(-5), getGreen(0));
+    }
+
+    .infoList {
+      .listItem {
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        padding: .5rem;
+
+        .itemEdit, .itemTitle {
+          padding: .5rem;
+        }
+      }
+    }
+  }
+}

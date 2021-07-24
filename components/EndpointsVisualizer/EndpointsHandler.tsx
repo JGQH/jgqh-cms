@@ -1,5 +1,8 @@
+import { useAuth } from '@Auth'
+import JButton from '@Components/JButton'
+import type { endpointsTypes } from '@Types'
 import type { endpointsDict, endpointsData } from '@Store'
-import { endpointsTypes } from '@Types'
+import styles from './endpointsHandler.module.scss'
 
 interface endpointsHandlerProps {
   response: endpointsDict
@@ -9,13 +12,13 @@ export default function EndpointsHandler({ response }: endpointsHandlerProps) {
   const Endpoints = Object.keys(response) as endpointsTypes[]
 
   return (
-    <div>
+    <>
       {Endpoints.map((endpoint, index) => {
         const dataList = response[endpoint] || []
 
         return <EndpointInfo key={index} {...{endpoint, dataList}} />
       })}
-    </div>
+    </>
   )
 }
 
@@ -25,11 +28,11 @@ interface endpointVisualizerProps extends JSX.IntrinsicAttributes {
 }
 function EndpointInfo({ endpoint, dataList }: endpointVisualizerProps) {
   return (
-    <div>
-      <div>
-        {endpoint}
+    <div className={styles.endpointInfo}>
+      <div className={styles.infoTitle}>
+        <h1>{endpoint}</h1>
       </div>
-      <div>
+      <div className={styles.infoList}>
         {dataList.map((data, index) => {
           return <EndpointContent key={index} {...{data}} />
         })}
@@ -41,18 +44,20 @@ interface endpointContentProps extends JSX.IntrinsicAttributes {
   data: endpointsData
 }
 function EndpointContent({ data }: endpointContentProps) {
+  const { user } = useAuth()
 
   function editData() {
     console.log(data.id)
   }
 
   return (
-    <div>
-      <div>
-        <p>-{data.Name} (Wait: {data.Wait}ms)</p>
+    <div className={styles.listItem}>
+      <div className={styles.itemTitle}>
+        <p>- {data.Name} (Wait: {data.Wait}s)</p>
       </div>
-      <div>
-        <button onClick={editData}>Edit</button>
-      </div>
+      {user &&
+      <div className={styles.itemEdit}>
+        <JButton onClick={editData} >Edit</JButton>
+      </div>}
     </div>)
 }

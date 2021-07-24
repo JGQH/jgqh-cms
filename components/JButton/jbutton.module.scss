@@ -1,0 +1,21 @@
+@use 'styles/utilities' as *;
+
+.jbutton {
+  color: getWhite(0);
+  cursor: pointer;
+  padding: .5rem;
+  border: none;
+  border-radius: .5rem;
+  font-weight: bold;
+  background: getGreen(0);
+  transition: all .25s;
+
+  &:hover {
+    background: getGreen(-5);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background: getDark(5);
+  }
+}
