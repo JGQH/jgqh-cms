@@ -1,6 +1,7 @@
 @use 'styles/utilities' as *;
 
 .jbutton {
+  font-size: inherit;
   color: getWhite(0);
   cursor: pointer;
   padding: .5rem;

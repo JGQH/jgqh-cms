@@ -1,0 +1,41 @@
+@use 'styles/utilities' as *;
+
+.navbarContainer {
+  display: flex;
+  align-items: stretch;
+  flex-flow: row;
+  background-color: getDark(-1);
+
+  .navbarTitle {
+    flex: 1 0;
+    padding: 1rem;
+
+    h1 {
+      display: inline-block;
+      background: linear-gradient(0deg, getGreen(-5), getGreen(5));
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+  .navbarOptions {
+    flex: 0 1;
+    display: flex;
+    flex-flow: row;
+    align-items: stretch;
+
+    button {
+      cursor: pointer;
+      padding: 1rem;
+      color: getWhite(0);
+      font-size: inherit;
+      border: none;
+      background: transparent;
+      transition: all .25s;
+
+      &:hover {
+        background: getDark(10)
+      }
+
+    }
+  }
+}
