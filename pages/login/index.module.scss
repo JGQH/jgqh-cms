@@ -1,0 +1,58 @@
+@use 'styles/utilities' as *;
+
+.loginPage {
+  min-width: 100vw;
+  min-height: 100vh;
+
+  display: grid;
+
+  .loginContainer {
+    align-self: center;
+    justify-self: center;
+
+    $gap: 1rem;
+    display: flex;
+    flex-flow: column;
+
+    border-radius: $gap;
+    padding: $gap;
+    
+    gap: $gap;
+    color: getDark(0);
+    background: linear-gradient(180deg, getWhite(5), getWhite(-5));
+    box-shadow: 0 0 $gap $gap getDark(-2);
+
+    .loginTitle {
+      text-align: center;
+    }
+
+    .loginContent {
+      display: grid;
+      gap: $gap;
+
+      .loginInput {
+        display: flex;
+        justify-items: center;
+        flex-flow: row;
+
+        .inputTitle {
+          display: grid;
+          width: 40%;
+
+          p {
+            align-self: center;
+          }
+        }
+
+        .inputField {
+          width: 60%;
+        }
+      }
+    }
+
+    .loginActions {
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+}

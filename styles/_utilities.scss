@@ -23,7 +23,7 @@
 }
 
 @function getGreen($i, $a: 100%) {
-  @return getColor(153, 74%, 50%, 2%, $i, $a);
+  @return getColor(153, 74%, 40%, 2%, $i, $a);
 }
 
 @function getDark($i, $a: 100%) {

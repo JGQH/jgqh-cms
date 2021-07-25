@@ -1,4 +1,5 @@
 import { useAuth } from '@Auth'
+import Router from 'next/router'
 import styles from './navbar.module.scss'
 
 export default function Navbar() {
@@ -13,7 +14,7 @@ export default function Navbar() {
         {user ?
         <button>Logout</button>
         :
-        <button>Login</button>}
+        <button onClick={() => Router.push('/login')}>Login</button>}
       </div>
     </div>
   )

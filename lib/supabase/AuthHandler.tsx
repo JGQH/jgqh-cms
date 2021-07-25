@@ -1,12 +1,17 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 import Supabase from './Supabase'
 import type { User } from '@supabase/gotrue-js'
+import type { Provider, Session } from '@supabase/supabase-js'
 
-const AuthContext = createContext<Partial<AuthProps>>({})
+const AuthContext = createContext<AuthProps>({
+  user: null,
+  loading: true,
+  signIn: async () => ({}) as SignInProps
+})
 
 // Creates 'Provider' to pass down all the needed data
 interface ProviderProps {
-  children: JSX.Element | JSX.Element[]
+  children: ReactNode
 }
 
 export default function AuthProvider({ children }: ProviderProps) {
@@ -21,6 +26,16 @@ export default function AuthProvider({ children }: ProviderProps) {
 interface AuthProps {
   user?: User | null | undefined
   loading: boolean
+  signIn: (email:string, password:string) => Promise<SignInProps>
+}
+
+interface SignInProps {
+  session: Session | null
+  user: User | null
+  provider?: Provider | undefined
+  url?: string | null | undefined
+  error: Error | null
+  data: Session | null
 }
 
 function useAuthProvider(): AuthProps {
@@ -43,9 +58,14 @@ function useAuthProvider(): AuthProps {
     }
   }, [])
 
+  async function signIn(email:string, password:string):Promise<SignInProps> {
+    return await Supabase.auth.signIn({ email, password })
+  }
+
   return {
     user,
-    loading
+    loading,
+    signIn
   }
 }
 
