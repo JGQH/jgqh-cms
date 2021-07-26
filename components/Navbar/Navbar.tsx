@@ -12,7 +12,7 @@ export default function Navbar() {
       </div>
       <div className={styles.navbarOptions}>
         {user ?
-        <button>Logout</button>
+        <button onClick={() => Router.push('/logout')}>Logout</button>
         :
         <button onClick={() => Router.push('/login')}>Login</button>}
       </div>

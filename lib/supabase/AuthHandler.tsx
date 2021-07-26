@@ -6,7 +6,8 @@ import type { Provider, Session } from '@supabase/supabase-js'
 const AuthContext = createContext<AuthProps>({
   user: null,
   loading: true,
-  signIn: async () => ({}) as SignInProps
+  signIn: async () => ({}) as SignInValue,
+  signOut: async () => ({}) as SignOutValue
 })
 
 // Creates 'Provider' to pass down all the needed data
@@ -26,16 +27,21 @@ export default function AuthProvider({ children }: ProviderProps) {
 interface AuthProps {
   user?: User | null | undefined
   loading: boolean
-  signIn: (email:string, password:string) => Promise<SignInProps>
+  signIn: (email:string, password:string) => Promise<SignInValue>,
+  signOut: () => Promise<SignOutValue>
 }
 
-interface SignInProps {
+interface SignInValue {
   session: Session | null
   user: User | null
   provider?: Provider | undefined
   url?: string | null | undefined
   error: Error | null
   data: Session | null
+}
+
+interface SignOutValue {
+  error: Error | null
 }
 
 function useAuthProvider(): AuthProps {
@@ -58,14 +64,19 @@ function useAuthProvider(): AuthProps {
     }
   }, [])
 
-  async function signIn(email:string, password:string):Promise<SignInProps> {
+  async function signIn(email:string, password:string):Promise<SignInValue> {
     return await Supabase.auth.signIn({ email, password })
+  }
+
+  async function signOut():Promise<SignOutValue> {
+    return await Supabase.auth.signOut()
   }
 
   return {
     user,
     loading,
-    signIn
+    signIn,
+    signOut
   }
 }
 

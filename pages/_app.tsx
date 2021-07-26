@@ -3,7 +3,7 @@ import AuthProvider from '@Auth'
 import type { AppProps } from 'next/app'
 import Navbar from 'components/Navbar/Navbar'
 
-const NoNavbar:string[] = ['/login']
+const NoNavbar:string[] = ['/login', '/logout']
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   return (

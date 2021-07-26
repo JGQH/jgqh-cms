@@ -6,17 +6,22 @@ import { useState } from 'react'
 import styles from './index.module.scss'
 
 export default function Login() {
-  const { signIn } = useAuth()
+  const { user, signIn } = useAuth()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
   async function attemptLogin() {
     try {
       await signIn(email, password)
-      Router.push('/')
+      await Router.push('/')
     } catch (e) {
       alert((e as Error).message)
     }
+  }
+
+  if( user ) {
+    Router.push('/')
+    return <></>
   }
 
   return (
