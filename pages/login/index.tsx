@@ -1,12 +1,13 @@
+import { useState } from 'react'
+import Router from 'next/router'
+import Redirecter from 'lib/routes/Redirecter'
 import { useAuth } from '@Auth'
 import JButton from '@Components/JButton'
-import JInput from 'components/JInput/JInput'
-import Router from 'next/router'
-import { useState } from 'react'
+import JInput from '@Components/JInput'
 import styles from './index.module.scss'
 
-export default function Login() {
-  const { user, signIn } = useAuth()
+function Login() {
+  const { signIn } = useAuth()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
@@ -17,11 +18,6 @@ export default function Login() {
     } catch (e) {
       alert((e as Error).message)
     }
-  }
-
-  if( user ) {
-    Router.push('/')
-    return <></>
   }
 
   return (
@@ -55,4 +51,10 @@ export default function Login() {
       </div>
     </div>
   )
+}
+
+export default function DoLogin() {
+  return <Redirecter userOnly={false} redirectTo={'/'}>
+    <Login />
+  </Redirecter>
 }

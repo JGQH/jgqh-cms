@@ -26,7 +26,11 @@
       ],
       "@Components/*":[
         "components/EndpointsVisualizer/*",
-        "components/JButton/*"
+        "components/JButton/*",
+        "components/JInput/*"
+      ],
+      "@Hooks/*":[
+        "lib/hooks/*"
       ]
     }
   },
