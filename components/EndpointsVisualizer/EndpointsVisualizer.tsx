@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { getEndpoints, endpointsDict } from '@Store'
-import { useAsync, asyncStatus } from 'lib/hooks/useAsync'
+import useAsync from 'lib/hooks/useAsync'
 import EndpointsHandler from './EndpointsHandler'
 import styles1 from './endpointsVisualizer.module.scss'
 import styles2 from './endpointsHandler.module.scss'
@@ -17,16 +17,16 @@ export default function EndpointsVisualizer() {
   return (
     <div className={styles1.endpointsVisualizer}>
       <div className={styles2.endpointsContainer}>
-        {value.status === asyncStatus.IDLE && 
+        {value.status === 'idle' && 
           <p>Attempting to load your endpoints...</p>}
-        {value.status === asyncStatus.PENDING &&
+        {value.status === 'pending' &&
           <p>Loading your endpoints...</p>}
-        {value.status === asyncStatus.ERROR &&
+        {value.status === 'error' &&
           <p>There&apos;s been an error ({value.error})</p>}
-        {value.status === asyncStatus.SUCCESS && <EndpointsHandler response={value.response} />}
+        {value.status === 'success' && <EndpointsHandler response={value.response} />}
       </div>
       <div className={styles1.endpointsControllers}>
-          <JButton onClick={execute} disabled={(value.status === asyncStatus.IDLE) || (value.status === asyncStatus.PENDING)}>
+          <JButton onClick={execute} disabled={(value.status === 'idle') || (value.status === 'pending')}>
             Reload
           </JButton>
       </div>
