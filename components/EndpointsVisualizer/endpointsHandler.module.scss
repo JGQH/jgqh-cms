@@ -9,6 +9,10 @@
       border-bottom: 1px solid;
       border-image-slice: 1;
       border-image-source: linear-gradient(to left, getGreen(0), getGreen(-5), getGreen(0));
+
+      h1:first-letter {
+        text-transform: capitalize;
+      }
     }
 
     .infoList {

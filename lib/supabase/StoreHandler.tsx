@@ -2,7 +2,7 @@ import Supabase from './Supabase'
 import type { endpointsTypes } from '@Types'
 
 //Get main list of endpoints
-export interface endpointsData {
+export type endpointsData = {
   id: string
   Name: string
   Wait: number
@@ -13,7 +13,7 @@ export type endpointsDict = {
 }
 
 export async function getEndpoints() {
-  interface endpointsQuery extends endpointsData{
+  type endpointsQuery = endpointsData & {
     Endpoint: endpointsTypes
   }
 
@@ -38,4 +38,13 @@ export async function getEndpoints() {
   }
 
   return Endpoints
+}
+
+//Get value of specified values
+export async function getValues<T>(id:string, endpoint:string) {
+  const { data, error, status } = await Supabase.from(endpoint).select().eq('Endpoint_id', id)
+
+  if(error && status !== 406) throw error
+
+  return data ? data[0] as T : {} as T
 }

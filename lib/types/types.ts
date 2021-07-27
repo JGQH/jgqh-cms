@@ -1,4 +1,4 @@
 export enum endpointsTypes {
-  STATIC = 'Static',
-  DYNAMIC = 'Dynamic'
+  STATIC = 'static',
+  DYNAMIC = 'dynamic'
 }

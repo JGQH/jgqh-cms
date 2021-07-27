@@ -24,6 +24,9 @@
       "@Store":[
         "lib/supabase/StoreHandler"
       ],
+      "@Redirecter":[
+        "lib/routes/Redirecter"
+      ],
       "@Components/*":[
         "components/EndpointsVisualizer/*",
         "components/JButton/*",

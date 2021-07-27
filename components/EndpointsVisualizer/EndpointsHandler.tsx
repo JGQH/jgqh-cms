@@ -1,8 +1,9 @@
 import { useAuth } from '@Auth'
 import JButton from '@Components/JButton'
 import type { endpointsTypes } from '@Types'
-import type { endpointsDict, endpointsData } from '@Store'
+import { endpointsDict, endpointsData, getValues } from '@Store'
 import styles from './endpointsHandler.module.scss'
+import Router from 'next/router'
 
 interface endpointsHandlerProps {
   response: endpointsDict
@@ -34,20 +35,24 @@ function EndpointInfo({ endpoint, dataList }: endpointVisualizerProps) {
       </div>
       <div className={styles.infoList}>
         {dataList.map((data, index) => {
-          return <EndpointContent key={index} {...{data}} />
+          return <EndpointContent key={index} {...{data, endpoint}} />
         })}
       </div>
     </div>)
 }
 
 interface endpointContentProps extends JSX.IntrinsicAttributes {
+  endpoint: endpointsTypes
   data: endpointsData
 }
-function EndpointContent({ data }: endpointContentProps) {
+function EndpointContent({ data, endpoint }: endpointContentProps) {
   const { user } = useAuth()
 
-  function editData() {
-    console.log(data.id)
+  async function editData() {
+    await Router.push({
+      pathname: `${endpoint}/[id]`,
+      query: { id: data.id }
+    })
   }
 
   return (
