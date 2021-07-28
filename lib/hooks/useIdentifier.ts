@@ -1,15 +1,15 @@
-import { useRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router'
 
-type queryProps = {
+type IdentityRouter = NextRouter & {
   query: {
     id?:string
   }
 }
 
 export default function useIdentifier() {
-  const { query: { id } }: queryProps = useRouter()
+  const router:IdentityRouter = useRouter()
 
   return {
-    id: id || ''
+    id: router.query.id || ''
   }
 }

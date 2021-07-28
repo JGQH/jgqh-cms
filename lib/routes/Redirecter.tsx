@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useState } from 'react'
 import Router from 'next/router'
 import { useAuth } from '@Auth'
 
-type redirectProps = {
+interface redirectProps {
   userOnly: boolean /* */
   redirectTo: string
   children: ReactNode

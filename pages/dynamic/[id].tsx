@@ -1,30 +1,57 @@
-import useAsync from '@Hooks/useAsync'
-import useIdentifier from '@Hooks/useIdentifier'
-import Redirecter from '@Redirecter'
-import { getValues } from '@Store'
-import { useEffect } from 'react'
+import JButton from '@Components/JButton'
+import Editor from '@Routing/Editor'
+import { setValues } from '@Store'
 import type { dynamicQuery } from '@Types'
-import DynamicEndpoint from 'components/Routes/Dynamic/DynamicEndpoint'
+import { useState } from 'react'
 
-function Dynamic() {
-  const { id } = useIdentifier()
-  const { execute, value } = useAsync<dynamicQuery | null>(async () => getValues(id, 'Dynamic'))
+function copyToClipboard(text:string) {
+  navigator.clipboard.writeText(text)
+}
 
-  useEffect(() => {
-    execute()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+function Dynamic({ id, URL }:dynamicQuery) {
+  const [ url, setUrl ] = useState<string>(URL)
 
-  if(value.status === 'idle') return <p>Waiting for fetching to start...</p>
-  if(value.status === 'pending') return <p>Loading values...</p>
-  if(value.status === 'error') return <p>There&apos;s been an error. ({value.error})</p>
-  if(!value.response) return <p>No values were found.</p>
+  async function doUpdate() {
+    try {
+      await setValues<dynamicQuery>(id, 'Dynamic', {
+        URL: url
+      })
 
-  return <DynamicEndpoint {...value.response} />
+      alert('Update completed!')
+    } catch(e) {
+      alert('Error: ' + (e as Error).message)
+    }
+  }
+
+  return (
+    <div>
+      <div>
+        <div>
+          <h2>ID:</h2>
+        </div>
+        <div>
+          <p>{id}</p>
+        </div>
+        {navigator?.clipboard && //Confirms if the method is supported to show the button
+        <div>
+          <JButton onClick={() => copyToClipboard(id)}>Copy to Clipboard</JButton>
+        </div>}
+      </div>
+      <div>
+        <div>
+          <h2>URL:</h2>
+        </div>
+        <div>
+          <input type='text' defaultValue={URL} onChange={e => setUrl(e.target.value)} />
+        </div>
+      </div>
+      <div>
+        <JButton onClick={doUpdate}>Update</JButton>
+      </div>
+    </div>
+  )
 }
 
 export default function DoDynamic() {
-  return <Redirecter userOnly={true} redirectTo={'/'}>
-    <Dynamic />
-  </Redirecter>
+  return <Editor<dynamicQuery> Content={Dynamic} endpoint='Dynamic'  />
 }

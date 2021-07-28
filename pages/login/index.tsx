@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Router from 'next/router'
-import Redirecter from 'lib/routes/Redirecter'
+import Redirecter from '@Routing/Redirecter'
 import { useAuth } from '@Auth'
 import JButton from '@Components/JButton'
 import JInput from '@Components/JInput'

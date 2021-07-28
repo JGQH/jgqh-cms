@@ -42,7 +42,7 @@ export async function getEndpoints() {
 
 //Get value of specified endpoint
 export async function getValues<T>(id:string, endpoint:string) {
-  const { data, error, status } = await Supabase.from(endpoint).select().eq('Endpoint_id', id)
+  const { data, error, status } = await Supabase.from(endpoint).select().match({ 'Endpoint_id': id })
 
   if(error && status !== 406) throw error
 

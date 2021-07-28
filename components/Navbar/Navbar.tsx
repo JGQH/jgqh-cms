@@ -11,6 +11,7 @@ export default function Navbar() {
         <h1>Endpoints CMS</h1>
       </div>
       <div className={styles.navbarOptions}>
+        <button onClick={() => Router.push('/')}>Home</button>
         {user ?
         <button onClick={() => Router.push('/logout')}>Logout</button>
         :
