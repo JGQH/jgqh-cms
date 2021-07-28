@@ -40,11 +40,18 @@ export async function getEndpoints() {
   return Endpoints
 }
 
-//Get value of specified values
+//Get value of specified endpoint
 export async function getValues<T>(id:string, endpoint:string) {
   const { data, error, status } = await Supabase.from(endpoint).select().eq('Endpoint_id', id)
 
   if(error && status !== 406) throw error
 
-  return data ? data[0] as T : {} as T
+  return data && data[0] as T
+}
+
+//Update values of specified endpoint
+export async function setValues<T>(id:string, endpoint:string, values:Partial<T>) {
+  const { error, status } = await Supabase.from<T>(endpoint).update(values, { returning: 'minimal' }).match({ 'id': id })
+
+  if(error && status !== 406) throw error
 }

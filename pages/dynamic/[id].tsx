@@ -3,29 +3,24 @@ import useIdentifier from '@Hooks/useIdentifier'
 import Redirecter from '@Redirecter'
 import { getValues } from '@Store'
 import { useEffect } from 'react'
-
-interface valueQuery {
-  id: string
-  Endpoint_id: string
-  URL: string
-}
+import type { dynamicQuery } from '@Types'
+import DynamicEndpoint from 'components/Routes/Dynamic/DynamicEndpoint'
 
 function Dynamic() {
   const { id } = useIdentifier()
-  const { execute, value } = useAsync<valueQuery>(async () => await getValues(id, 'Dynamic'))
+  const { execute, value } = useAsync<dynamicQuery | null>(async () => getValues(id, 'Dynamic'))
 
   useEffect(() => {
     execute()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  
-  return (
-  <>
-    {value.status === 'idle' && <p>Waiting for fetching to start...</p>}
-    {value.status === 'pending' && <p>Fetching data...</p>}
-    {value.status === 'error' && <p>There&apos;s been an error</p>}
-    {value.status === 'success' && JSON.stringify(value.response)}
-  </>)
+
+  if(value.status === 'idle') return <p>Waiting for fetching to start...</p>
+  if(value.status === 'pending') return <p>Loading values...</p>
+  if(value.status === 'error') return <p>There&apos;s been an error. ({value.error})</p>
+  if(!value.response) return <p>No values were found.</p>
+
+  return <DynamicEndpoint {...value.response} />
 }
 
 export default function DoDynamic() {
