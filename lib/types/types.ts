@@ -12,6 +12,11 @@ export interface dynamicQuery extends valuesQuery {
   URL: string
 }
 
-export type Dictionary<T> = {
-  [key: string]: T
+export interface staticQuery extends valuesQuery {
+  URL: string
+  Parameters: Dictionary
+}
+
+export interface Dictionary {
+  [key: string]: string
 }
