@@ -1,0 +1,47 @@
+@use 'styles/utilities' as *;
+
+.editorVisualizer {
+  @include landscape {
+    width: 75%;
+    margin: 0 auto;
+  }
+
+  .editorField {
+    padding: 1rem;
+
+    .fieldTitle {
+      text-align: center;
+    }
+
+    .fieldContent {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+    }
+  }
+
+  .editorActions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+}
+
+.editorMainInput {
+  width: 100%;
+
+  @include landscape {
+    width: 50%;
+  }
+
+  text-align: center;
+}
+
+.editorInput, .editorMainInput {
+  padding: .5rem;
+  background: getDark(-1);
+  border: 1px solid getDark(-1.5);
+  border-radius: .5rem;
+  color: getWhite(0);
+}

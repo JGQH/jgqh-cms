@@ -5,6 +5,8 @@ import Editor from '@Routing/Editor'
 import { setValues } from '@Store'
 import type { staticQuery } from '@Types'
 import { useState } from 'react'
+import styles from '@Styles/Editor.module.scss'
+import staticStyles from './styles.module.scss'
 
 function copyToClipboard(text:string) {
   navigator.clipboard.writeText(text)
@@ -16,51 +18,51 @@ function Static({ id, URL, Parameters } : staticQuery) {
   const { execute, value } = useAsync(() => setValues<staticQuery>(id, 'Static', { URL: url, Parameters: getJson() }))
 
   return (
-    <div>
-      <div>
-        <div>
-          <h2>ID:</h2>
+    <div className={styles.editorVisualizer}>
+      <div className={styles.editorField}>
+        <div className={styles.fieldTitle}>
+          <h1>ID:</h1>
         </div>
-        <div>
-          <p>{id}</p>
-        </div>
-        {navigator?.clipboard && //Confirms if the method is supported to show the button
-        <div>
-          <JButton onClick={() => copyToClipboard(id)}>Copy to Clipboard</JButton>
-        </div>}
-      </div>
-      <div>
-        <div>
-          <h2>URL:</h2>
-        </div>
-        <div>
-          <input type='text' defaultValue={URL} onChange={e => setUrl(e.target.value)} />
+        <div className={styles.fieldContent}>
+          <div>
+            <p>{id}</p>
+          </div>
+          {navigator?.clipboard && //Confirms if the method is supported to show the button
+          <div>
+            <JButton onClick={() => copyToClipboard(id)}>Copy to Clipboard</JButton>
+          </div>}
         </div>
       </div>
-      <div>
-        <div>
+      <div className={styles.editorField}>
+        <div className={styles.fieldTitle}>
+          <h1>URL:</h1>
+        </div>
+        <div className={styles.fieldContent}>
+          <input className={styles.editorMainInput} type='text' defaultValue={URL} onChange={e => setUrl(e.target.value)} />
+        </div>
+      </div>
+      <div className={styles.editorField}>
+        <div className={styles.fieldTitle}>
           <h2>Parameters:</h2>
         </div>
-        <div>
+        <div className={styles.fieldContent}>
           {map((key:string, value:string, i:number) => (
-            <div key={i}>
-              <div>
-                <input type='text' onChange={e => modifyKey(i, e.target.value)} defaultValue={key} />
+            <div key={i} className={staticStyles.fieldParam} >
+              <div className={staticStyles.paramKey}>
+                <input className={styles.editorInput} type='text' onChange={e => modifyKey(i, e.target.value)} defaultValue={key} />
               </div>
-              <div>
-                <input type='text' onChange={e => modifyValue(i, e.target.value)} defaultValue={value} />
+              <div className={staticStyles.paramValue}>
+                <input className={styles.editorInput} type='text' onChange={e => modifyValue(i, e.target.value)} defaultValue={value} />
               </div>
-              <div>
-                <JButton onClick={() => deleteRow(i)}>Delete Row</JButton>
-              </div>
+              <JButton onClick={() => deleteRow(i)} className={staticStyles.paramDel}>Delete Row</JButton>
             </div>
           ))}
-        </div>
-        <div>
-          <JButton onClick={appendRow}>Append Row</JButton>
+          <div>
+            <JButton onClick={appendRow}>Append Row</JButton>
+          </div>
         </div>
       </div>
-      <div>
+      <div className={styles.editorActions}>
         <JButton onClick={execute} disabled={value.status === 'pending'}>Update</JButton>
         {value.status === 'pending' && <p>Updating values...</p>}
         {value.status === 'success' && <p>Values successfully updated.</p>}

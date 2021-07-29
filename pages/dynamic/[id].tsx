@@ -4,6 +4,7 @@ import Editor from '@Routing/Editor'
 import { setValues } from '@Store'
 import type { dynamicQuery } from '@Types'
 import { useState } from 'react'
+import styles from '@Styles/Editor.module.scss'
 
 function copyToClipboard(text:string) {
   navigator.clipboard.writeText(text)
@@ -14,28 +15,30 @@ function Dynamic({ id, URL }:dynamicQuery) {
   const { execute, value } = useAsync(() => setValues<dynamicQuery>(id, 'Dynamic', { URL: url }))
 
   return (
-    <div>
-      <div>
-        <div>
-          <h2>ID:</h2>
+    <div className={styles.editorVisualizer}>
+      <div className={styles.editorField}>
+        <div className={styles.fieldTitle}>
+          <h1>ID:</h1>
         </div>
-        <div>
-          <p>{id}</p>
-        </div>
-        {navigator?.clipboard && //Confirms if the method is supported to show the button
-        <div>
-          <JButton onClick={() => copyToClipboard(id)}>Copy to Clipboard</JButton>
-        </div>}
-      </div>
-      <div>
-        <div>
-          <h2>URL:</h2>
-        </div>
-        <div>
-          <input type='text' defaultValue={URL} onChange={e => setUrl(e.target.value)} />
+        <div className={styles.fieldContent}>
+          <div>
+            <p>{id}</p>
+          </div>
+          {navigator?.clipboard && //Confirms if the method is supported to show the button
+          <div>
+            <JButton onClick={() => copyToClipboard(id)}>Copy to Clipboard</JButton>
+          </div>}
         </div>
       </div>
-      <div>
+      <div className={styles.editorField}>
+        <div className={styles.fieldTitle}>
+          <h1>URL:</h1>
+        </div>
+        <div className={styles.fieldContent}>
+          <input className={styles.editorMainInput} type='text' defaultValue={URL} onChange={e => setUrl(e.target.value)} />
+        </div>
+      </div>
+      <div className={styles.editorActions}>
         <JButton onClick={execute} disabled={value.status === 'pending'} >Update</JButton>
         {value.status === 'pending' && <p>Updating values...</p>}
         {value.status === 'success' && <p>Values successfully updated.</p>}

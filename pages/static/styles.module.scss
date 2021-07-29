@@ -1,0 +1,31 @@
+@use 'styles/utilities' as *;
+
+.fieldParam {
+  padding: .5rem;
+  gap: .5rem;
+
+  @include landscape {
+    display: flex;
+    flex-flow: row;
+  }
+  
+
+  @include portrait {
+    display: grid;
+    grid-template-areas:
+    'key   del'
+    'value del';
+
+    .paramKey {
+      grid-area: key;
+    }
+
+    .paramValue {
+      grid-area: value;
+    }
+
+    .paramDel {
+      grid-area: del;
+    }
+  }
+}
