@@ -1,4 +1,5 @@
 import JButton from '@Components/JButton'
+import useAsync from '@Hooks/useAsync'
 import useJson from '@Hooks/useJson'
 import Editor from '@Routing/Editor'
 import { setValues } from '@Store'
@@ -10,21 +11,9 @@ function copyToClipboard(text:string) {
 }
 
 function Static({ id, URL, Parameters } : staticQuery) {
-  const [url, setUrl] = useState<string>(URL)
+  const [ url, setUrl ] = useState<string>(URL)
   const { map, modifyKey, modifyValue, deleteRow, appendRow, getJson } = useJson(Parameters)
-
-  async function doUpdate() {
-    try {
-      await setValues<staticQuery>(id, 'Static', {
-        URL: url,
-        Parameters: getJson()
-      })
-
-      alert('Update completed!')
-    } catch(e) {
-      alert('Error: ' + (e as Error).message)
-    }
-  }
+  const { execute, value } = useAsync(() => setValues<staticQuery>(id, 'Static', { URL: url, Parameters: getJson() }))
 
   return (
     <div>
@@ -72,7 +61,10 @@ function Static({ id, URL, Parameters } : staticQuery) {
         </div>
       </div>
       <div>
-        <JButton onClick={doUpdate}>Update</JButton>
+        <JButton onClick={execute} disabled={value.status === 'pending'}>Update</JButton>
+        {value.status === 'pending' && <p>Updating values...</p>}
+        {value.status === 'success' && <p>Values successfully updated.</p>}
+        {value.status === 'error' && <p>There&apos;s been an error ({value.error})</p>}
       </div>
     </div>
   )

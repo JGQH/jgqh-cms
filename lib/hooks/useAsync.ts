@@ -1,4 +1,4 @@
-import { useCallback, useReducer } from 'react';
+import { useCallback, useReducer } from 'react'
 
 type asyncInterface<T> =
   | {status: 'idle'}
@@ -15,22 +15,17 @@ export default function useAsync<T>(asyncFunction:() => Promise<T>) {
 
   const [value, dispatch] = useReducer(Reducer, {status: 'idle'})
 
-  const execute = useCallback(() => {
+  const execute = useCallback(async () => {
     dispatch({ status: 'pending' })
+    try {
+      const response = await asyncFunction()
+      
+      dispatch({ status: 'success', response })
+    } catch (e) {
+      const error = (e as Error).message
 
-    const dispatcher = async () => {
-      try {
-        const response = await asyncFunction()
-        
-        dispatch({ status: 'success', response })
-      } catch (e) {
-        const error = (e as Error).message
-
-        dispatch({ status: 'error', error })
-      }
+      dispatch({ status: 'error', error })
     }
-
-    dispatcher()
   }, [asyncFunction])
 
   return { execute, value }

@@ -1,4 +1,5 @@
 import JButton from '@Components/JButton'
+import useAsync from '@Hooks/useAsync'
 import Editor from '@Routing/Editor'
 import { setValues } from '@Store'
 import type { dynamicQuery } from '@Types'
@@ -10,18 +11,7 @@ function copyToClipboard(text:string) {
 
 function Dynamic({ id, URL }:dynamicQuery) {
   const [ url, setUrl ] = useState<string>(URL)
-
-  async function doUpdate() {
-    try {
-      await setValues<dynamicQuery>(id, 'Dynamic', {
-        URL: url
-      })
-
-      alert('Update completed!')
-    } catch(e) {
-      alert('Error: ' + (e as Error).message)
-    }
-  }
+  const { execute, value } = useAsync(() => setValues<dynamicQuery>(id, 'Dynamic', { URL: url }))
 
   return (
     <div>
@@ -46,7 +36,10 @@ function Dynamic({ id, URL }:dynamicQuery) {
         </div>
       </div>
       <div>
-        <JButton onClick={doUpdate}>Update</JButton>
+        <JButton onClick={execute} disabled={value.status === 'pending'} >Update</JButton>
+        {value.status === 'pending' && <p>Updating values...</p>}
+        {value.status === 'success' && <p>Values successfully updated.</p>}
+        {value.status === 'error' && <p>There&apos;s been an error ({value.error})</p>}
       </div>
     </div>
   )
