@@ -12,12 +12,14 @@ interface editorProps<T> {
 function DoEditor<T>({ Content, endpoint }: editorProps<T>) {
   const { id } = useIdentifier()
 
-  const { execute, value } = useAsync<T | null>(async () => getValues(id, endpoint))
+  const { execute, value } = useAsync<T | null>(() => getValues(id || '', endpoint))
 
   useEffect(() => {
-    execute()
+    if(id) {
+      execute()
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [id])
 
   if(value.status === 'idle') return <p>Waiting for fetching to start...</p>
   if(value.status === 'pending') return <p>Loading values...</p>
