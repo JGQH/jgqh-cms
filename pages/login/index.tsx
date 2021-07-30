@@ -4,7 +4,7 @@ import Redirecter from '@Routing/Redirecter'
 import { useAuth } from '@Auth'
 import JButton from '@Components/JButton'
 import JInput from '@Components/JInput'
-import styles from './index.module.scss'
+import styles from '@Styles/Modal.module.scss'
 
 function Login() {
   const { signIn } = useAuth()
@@ -21,13 +21,13 @@ function Login() {
   }
 
   return (
-    <div className={styles.loginPage}>
-      <div className={styles.loginContainer}>
-        <div className={styles.loginTitle}>
+    <div className={styles.modalPage}>
+      <div className={styles.modalContainer}>
+        <div className={styles.modalTitle}>
           <h1>Login Form</h1>
         </div>
-        <div className={styles.loginContent}>
-          <div className={styles.loginInput}>
+        <div className={styles.modalContent}>
+          <div className={styles.modalInput}>
             <div className={styles.inputTitle}>
               <p>Email:</p>
             </div>
@@ -44,7 +44,7 @@ function Login() {
             </div>
           </div>
         </div>
-        <div className={styles.loginActions}>
+        <div className={styles.modalActions}>
           <JButton onClick={() => Router.push('/')}>Return</JButton>
           <JButton onClick={attemptLogin}>Login</JButton>
         </div>

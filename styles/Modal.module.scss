@@ -1,12 +1,12 @@
 @use 'styles/utilities' as *;
 
-.loginPage {
+.modalPage {
   min-width: 100vw;
   min-height: 100vh;
 
   display: grid;
 
-  .loginContainer {
+  .modalContainer {
     align-self: center;
     justify-self: center;
 
@@ -22,15 +22,15 @@
     background: linear-gradient(180deg, getWhite(5), getWhite(-5));
     box-shadow: 0 0 $gap $gap getDark(-2);
 
-    .loginTitle {
+    .modalTitle {
       text-align: center;
     }
 
-    .loginContent {
+    .modalContent {
       display: grid;
       gap: $gap;
 
-      .loginInput {
+      .modalInput {
         display: flex;
         justify-items: center;
         flex-flow: row;
@@ -50,7 +50,7 @@
       }
     }
 
-    .loginActions {
+    .modalActions {
       display: flex;
       justify-content: space-around;
     }
