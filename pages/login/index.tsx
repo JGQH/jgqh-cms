@@ -4,20 +4,13 @@ import Redirecter from '@Routing/Redirecter'
 import { useAuth } from '@Auth'
 import JButton from '@Components/JButton'
 import styles from '@Styles/Modal.module.scss'
+import useAsync from '@Hooks/useAsync'
 
 function Login() {
   const { signIn } = useAuth()
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-
-  async function attemptLogin() {
-    try {
-      await signIn(email, password)
-      await Router.push('/')
-    } catch (e) {
-      alert((e as Error).message)
-    }
-  }
+  const [ email, setEmail ] = useState<string>('')
+  const [ password, setPassword ] = useState<string>('')
+  const { execute, value:{ status } } = useAsync(() => signIn(email, password))
 
   return (
     <div className={styles.modalPage}>
@@ -34,7 +27,7 @@ function Login() {
               <input type='email' onChange={e => setEmail(e.target.value)} />
             </div>
           </div>
-          <div className={styles.loginInput}>
+          <div className={styles.modalInput}>
             <div className={styles.inputTitle}>
               <p>Password</p>
             </div>
@@ -45,7 +38,7 @@ function Login() {
         </div>
         <div className={styles.modalActions}>
           <JButton onClick={() => Router.push('/')}>Return</JButton>
-          <JButton onClick={attemptLogin}>Login</JButton>
+          <JButton onClick={execute} disabled={status === 'pending'} >Login</JButton>
         </div>
       </div>
     </div>
