@@ -1,5 +1,4 @@
 import JButton from '@Components/JButton'
-import JInput from '@Components/JInput'
 import Redirecter from '@Routing/Redirecter'
 import styles from '@Styles/Modal.module.scss'
 import { endpointsTypes } from '@Types'
@@ -15,7 +14,7 @@ function Create() {
         <div className={styles.modalContent}>
           <div className={styles.modalInput}>
             <div className={styles.inputTitle}>
-              <p>Type:</p>
+              <p>Type</p>
             </div>
             <div className={styles.inputField}>
               <select>
@@ -26,18 +25,18 @@ function Create() {
           </div>
           <div className={styles.modalInput}>
             <div className={styles.inputTitle}>
-              <p>Name:</p>
+              <p>Name</p>
             </div>
             <div className={styles.inputField}>
-              <JInput />
+              <input type='text'/>
             </div>
           </div>
           <div className={styles.modalInput}>
             <div className={styles.inputTitle}>
-              <p>Wait:</p>
+              <p>Wait</p>
             </div>
             <div className={styles.inputField}>
-              <JInput />
+              <input type='text'/>
             </div>
           </div>
         </div>

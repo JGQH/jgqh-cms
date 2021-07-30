@@ -3,7 +3,6 @@ import Router from 'next/router'
 import Redirecter from '@Routing/Redirecter'
 import { useAuth } from '@Auth'
 import JButton from '@Components/JButton'
-import JInput from '@Components/JInput'
 import styles from '@Styles/Modal.module.scss'
 
 function Login() {
@@ -29,18 +28,18 @@ function Login() {
         <div className={styles.modalContent}>
           <div className={styles.modalInput}>
             <div className={styles.inputTitle}>
-              <p>Email:</p>
+              <p>Email</p>
             </div>
             <div className={styles.inputField}>
-              <JInput type='email' onChange={e => setEmail(e.target.value)} />
+              <input type='email' onChange={e => setEmail(e.target.value)} />
             </div>
           </div>
           <div className={styles.loginInput}>
             <div className={styles.inputTitle}>
-              <p>Password:</p>
+              <p>Password</p>
             </div>
             <div className={styles.inputField}>
-              <JInput type='password' onChange={e => setPassword(e.target.value)} />
+              <input type='password' onChange={e => setPassword(e.target.value)} />
             </div>
           </div>
         </div>
