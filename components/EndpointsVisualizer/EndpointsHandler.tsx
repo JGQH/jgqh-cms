@@ -1,4 +1,5 @@
 import { useAuth } from '@Auth'
+import useAsync from '@Hooks/useAsync'
 import JButton from '@Components/JButton'
 import type { endpointsTypes } from '@Types'
 import { endpointsDict, endpointsData, deleteValues } from '@Store'
@@ -46,6 +47,7 @@ interface endpointContentProps extends JSX.IntrinsicAttributes {
   data: endpointsData
 }
 function EndpointContent({ data, endpoint }: endpointContentProps) {
+  const { execute, value } = useAsync(async () => await deleteValues(data.id))
   const { user } = useAuth()
 
   async function editData() {
@@ -59,27 +61,27 @@ function EndpointContent({ data, endpoint }: endpointContentProps) {
     const doDelete = confirm(`Are you sure to delete endpoint '${data.Name}'?`)
 
     if(doDelete) {
-      try {
-        await deleteValues(data.id)
-        alert(`Endpoint '${data.Name}' successfully deleted. Click the 'Reload' button to reflect changes.`)
-      } catch (e) {
-        alert((e as Error).message)
-      }
+      execute()
     }
   }
 
   return (
     <div className={styles.listItem}>
-      <div className={styles.itemTitle}>
+      <div className={styles.itemText}>
         <p>- {data.Name} (Wait: {data.Wait}s)</p>
       </div>
       {user &&
       <>
         <div className={styles.itemEdit}>
-          <JButton onClick={editData} >Edit</JButton>
+          <JButton onClick={editData} disabled={value.status === 'pending' || value.status === 'success'}>Edit</JButton>
         </div>
         <div className={styles.itemEdit}>
-          <JButton onClick={deleteData}>Delete</JButton>
+          <JButton onClick={deleteData}  disabled={value.status === 'pending' || value.status === 'success'}>Delete</JButton>
+        </div>
+        <div className={styles.itemText}>
+          {value.status === 'pending' && <i>Proceeding with deletion...</i>}
+          {value.status === 'error' && <i>Error: {value.error}</i>}
+          {value.status === 'success' && <i>Endpoint deleted succesfully. Click &apos;Reload&apos; to update list.</i>}
         </div>
       </>}
     </div>)
