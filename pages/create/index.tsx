@@ -29,7 +29,7 @@ function Create() {
             <div className={styles.inputField}>
               <select onChange={e => setIndex(+e.target.value)}>
                 {endpointsList.map((val, i) => (
-                  <option key={i}>{val}</option>
+                  <option key={i} value={i}>{val}</option>
                 ))}
               </select>
             </div>

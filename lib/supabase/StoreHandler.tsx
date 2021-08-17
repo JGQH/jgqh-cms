@@ -58,6 +58,23 @@ export async function setValues<T>(id:string, endpoint:string, values:Partial<T>
 
 //Create new endpoint with default values
 export async function createValues(endpoint:endpointsTypes, name:string, wait:number) {
-  if(name.length < 4) throw new Error('ValidationError: \'Name\' field is too short')
-  if(isNaN(wait)) throw new Error('ValidationError: Invalid \'wait\' value')
+  if(name.length < 4) throw new Error('\'Name\' field is too short')
+  if(isNaN(wait)) throw new Error('Invalid \'wait\' value')
+
+  const { error } = await Supabase.rpc<void>('create_endpoint', { 
+    'endpoint_type': endpoint,
+    'endpoint_name': name,
+    'endpoint_wait': wait
+  })
+
+  if(error) throw error
+}
+
+//Delete specified endpoints and related values
+export async function deleteValues(id:string) {
+  const { error } = await Supabase.rpc<void>('delete_endpoint', {
+    'endpoint_id': id
+  })
+
+  if(error) throw error
 }

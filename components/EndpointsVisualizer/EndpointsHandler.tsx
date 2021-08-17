@@ -1,7 +1,7 @@
 import { useAuth } from '@Auth'
 import JButton from '@Components/JButton'
 import type { endpointsTypes } from '@Types'
-import { endpointsDict, endpointsData, getValues } from '@Store'
+import { endpointsDict, endpointsData, deleteValues } from '@Store'
 import styles from './endpointsHandler.module.scss'
 import Router from 'next/router'
 
@@ -55,14 +55,32 @@ function EndpointContent({ data, endpoint }: endpointContentProps) {
     })
   }
 
+  async function deleteData() {
+    const doDelete = confirm(`Are you sure to delete endpoint '${data.Name}'?`)
+
+    if(doDelete) {
+      try {
+        await deleteValues(data.id)
+        alert(`Endpoint '${data.Name}' successfully deleted. Click the 'Reload' button to reflect changes.`)
+      } catch (e) {
+        alert((e as Error).message)
+      }
+    }
+  }
+
   return (
     <div className={styles.listItem}>
       <div className={styles.itemTitle}>
         <p>- {data.Name} (Wait: {data.Wait}s)</p>
       </div>
       {user &&
-      <div className={styles.itemEdit}>
-        <JButton onClick={editData} >Edit</JButton>
-      </div>}
+      <>
+        <div className={styles.itemEdit}>
+          <JButton onClick={editData} >Edit</JButton>
+        </div>
+        <div className={styles.itemEdit}>
+          <JButton onClick={deleteData}>Delete</JButton>
+        </div>
+      </>}
     </div>)
 }
