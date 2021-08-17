@@ -1,5 +1,4 @@
 import { NextRouter, useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
 
 type IdentityRouter = NextRouter & {
   query: {

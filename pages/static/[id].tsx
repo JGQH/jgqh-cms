@@ -1,18 +1,16 @@
+import { useState } from 'react'
 import JButton from '@Components/JButton'
 import useAsync from '@Hooks/useAsync'
 import useJson from '@Hooks/useJson'
+import useClipboard from '@Hooks/useClipboard'
 import Editor from '@Routing/Editor'
 import { setValues } from '@Store'
-import type { staticQuery } from '@Types'
-import { useState } from 'react'
 import styles from '@Styles/Editor.module.scss'
 import staticStyles from './styles.module.scss'
-
-function copyToClipboard(text:string) {
-  navigator.clipboard.writeText(text)
-}
+import type { staticQuery } from '@Types'
 
 function Static({ id, URL, Parameters } : staticQuery) {
+  const { copyToClipboard } = useClipboard()
   const [ url, setUrl ] = useState<string>(URL)
   const { map, modifyKey, modifyValue, deleteRow, appendRow, getJson } = useJson(Parameters)
   const { execute, value } = useAsync(() => setValues<staticQuery>(id, 'Static', { URL: url, Parameters: getJson() }))
@@ -27,8 +25,7 @@ function Static({ id, URL, Parameters } : staticQuery) {
           <div>
             <p>{id}</p>
           </div>
-          {navigator?.clipboard && //Confirms if the method is supported to show the button
-          <div>
+          {<div>
             <JButton onClick={() => copyToClipboard(id)}>Copy to Clipboard</JButton>
           </div>}
         </div>
