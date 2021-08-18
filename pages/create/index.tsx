@@ -1,13 +1,13 @@
+import Router from 'next/router'
+import { useState } from 'react'
 import JButton from '@Components/JButton'
 import useAsync from '@Hooks/useAsync'
 import Redirecter from '@Routing/Redirecter'
 import { createValues } from '@Store'
 import styles from '@Styles/Modal.module.scss'
 import { endpointsTypes } from '@Types'
-import Router from 'next/router'
-import { useEffect, useState } from 'react'
 
-const endpointsList = [endpointsTypes.STATIC, endpointsTypes.DYNAMIC]
+const endpointsList = [endpointsTypes.STATIC, endpointsTypes.DYNAMIC, endpointsTypes.JSON]
 
 function Create() {
   const [ index, setIndex ] = useState<number>(0)

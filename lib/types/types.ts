@@ -1,6 +1,7 @@
 export enum endpointsTypes {
   STATIC = 'static',
-  DYNAMIC = 'dynamic'
+  DYNAMIC = 'dynamic',
+  JSON = 'json'
 }
 
 interface valuesQuery {
@@ -15,6 +16,10 @@ export interface dynamicQuery extends valuesQuery {
 export interface staticQuery extends valuesQuery {
   URL: string
   Parameters: Dictionary
+}
+
+export interface jsonQuery extends valuesQuery {
+  Value: Dictionary
 }
 
 export interface Dictionary {
