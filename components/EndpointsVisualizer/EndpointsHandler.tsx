@@ -47,7 +47,7 @@ interface endpointContentProps extends JSX.IntrinsicAttributes {
   data: endpointsData
 }
 function EndpointContent({ data, endpoint }: endpointContentProps) {
-  const { execute, value } = useAsync(async () => await deleteValues(data.id))
+  const [ execute, value ] = useAsync(async () => await deleteValues(data.id))
   const { user } = useAuth()
 
   async function editData() {

@@ -10,7 +10,7 @@ import type { Dictionary, jsonQuery } from '@Types'
 function Json({ id, Value }:jsonQuery) {
   const { copyToClipboard } = useClipboard()
   const [ json, setJson ] = useState<string>(JSON.stringify(Value))
-  const { execute, value } = useAsync(() => setValues(id, 'Json', { Value: JSON.parse(json) as Dictionary }))
+  const [ execute, value ] = useAsync(() => setValues(id, 'Json', { Value: JSON.parse(json) as Dictionary }))
 
   return (
     <div className={styles.editorVisualizer}>

@@ -10,7 +10,7 @@ import type { dynamicQuery } from '@Types'
 function Dynamic({ id, URL }:dynamicQuery) {
   const { copyToClipboard } = useClipboard()
   const [ url, setUrl ] = useState<string>(URL)
-  const { execute, value } = useAsync(() => setValues<dynamicQuery>(id, 'Dynamic', { URL: url }))
+  const [ execute, value ] = useAsync(() => setValues<dynamicQuery>(id, 'Dynamic', { URL: url }))
 
   return (
     <div className={styles.editorVisualizer}>

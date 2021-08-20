@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 
 function Logout() {
   const { signOut } = useAuth()
-  const { execute } = useAsync(signOut)
+  const [ execute ] = useAsync(signOut)
 
   useEffect(() => {
     execute()

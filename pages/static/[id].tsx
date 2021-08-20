@@ -13,7 +13,7 @@ function Static({ id, URL, Parameters } : staticQuery) {
   const { copyToClipboard } = useClipboard()
   const [ url, setUrl ] = useState<string>(URL)
   const { map, modifyKey, modifyValue, deleteRow, appendRow, getJson } = useJson(Parameters)
-  const { execute, value } = useAsync(() => setValues<staticQuery>(id, 'Static', { URL: url, Parameters: getJson() }))
+  const [ execute, value ] = useAsync(() => setValues<staticQuery>(id, 'Static', { URL: url, Parameters: getJson() }))
 
   return (
     <div className={styles.editorVisualizer}>

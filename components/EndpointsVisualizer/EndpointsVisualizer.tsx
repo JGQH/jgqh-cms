@@ -11,7 +11,7 @@ import { useAuth } from '@Auth'
 
 export default function EndpointsVisualizer() {
   const { user } = useAuth()
-  const { execute, value } = useAsync<endpointsDict>(getEndpoints)
+  const [ execute, value ] = useAsync<endpointsDict>(getEndpoints)
 
   useEffect(() => {
     execute()

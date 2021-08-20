@@ -14,8 +14,8 @@ function Images({ id }:imageQuery) {
   const input = useRef<HTMLInputElement>(null)
   const [ url, setUrl ] = useState<string | null>(null)
   const [ file, setFile ] = useState<File | null>(null)
-  const { execute:loadImage, value:imgValue } = useAsync(() => getImage(id))
-  const { execute, value } = useAsync(() => updateImage(id, file))
+  const [ loadImage, imgValue ] = useAsync(() => getImage(id))
+  const [ execute, value ] = useAsync(() => updateImage(id, file))
 
   useEffect(() => {
     loadImage()

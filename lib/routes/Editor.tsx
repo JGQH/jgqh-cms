@@ -12,7 +12,7 @@ interface editorProps<T> {
 function DoEditor<T>({ Content, endpoint }: editorProps<T>) {
   const { id } = useIdentifier()
 
-  const { execute, value } = useAsync<T | null>(() => getValues(id || '', endpoint))
+  const [ execute, value ] = useAsync<T | null>(() => getValues(id || '', endpoint))
 
   useEffect(() => {
     if(id) {

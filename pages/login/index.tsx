@@ -10,7 +10,7 @@ function Login() {
   const { signIn } = useAuth()
   const [ email, setEmail ] = useState<string>('')
   const [ password, setPassword ] = useState<string>('')
-  const { execute, value:{ status } } = useAsync(() => signIn(email, password))
+  const [ execute, { status } ] = useAsync(() => signIn(email, password))
 
   return (
     <div className={styles.modalPage}>

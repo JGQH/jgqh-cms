@@ -28,5 +28,5 @@ export default function useAsync<T>(asyncFunction:() => Promise<T>) {
     }
   }, [asyncFunction])
 
-  return { execute, value }
+  return [ execute, value ] as const
 }

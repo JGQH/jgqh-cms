@@ -13,7 +13,7 @@ function Create() {
   const [ index, setIndex ] = useState<number>(0)
   const [ name, setName ] = useState<string>('')
   const [ wait, setWait ] = useState<string>('0')
-  const { execute, value } = useAsync<void>(() => createValues(endpointsList[index], name, +wait))
+  const [ execute, value ] = useAsync<void>(() => createValues(endpointsList[index], name, +wait))
 
   return (
     <div className={styles.modalPage}>
