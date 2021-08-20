@@ -30,9 +30,17 @@ function Images({ id }:imageQuery) {
 
   function loadImage(e:ChangeEvent<HTMLInputElement>){
     if(e.target.files) {
-      console.log(e.target.files[0])
+      const file = e.target.files[0]
+      
+      if(['image/gif', 'image/jpeg', 'image/png'].includes(file.type)) {
+        const reader = new FileReader()
+        reader.onload = () => {
+          console.log(reader.result)
+          setUrl(reader.result as string | null)
+        }
+        reader.readAsDataURL(file)
+      }
     }
-    
   }
 
   return (
@@ -55,10 +63,13 @@ function Images({ id }:imageQuery) {
           <h1>Image:</h1>
         </div>
         <div className={styles.fieldContent}>
-          {value.status === 'success' &&
+          
           <div className={imagesStyles.imageVisualizer}>
-            <Image src={url || value.response} layout='fill' alt={id} />
-          </div>}
+            {url ?
+            <Image src={url} layout='fill' alt={id} />
+            :
+            (value.status === 'success') && <Image src={value.response} layout='fill' alt={id} />}
+          </div>
           <div className={imagesStyles.imageUploader}>
             <JButton onClick={() => input.current?.click()}>Upload Image</JButton>
             <input ref={input} type='file' onChange={loadImage}  />

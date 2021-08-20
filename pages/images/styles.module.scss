@@ -2,12 +2,16 @@
 
 .imageVisualizer {
   aspect-ratio: 16/9;
+  position: relative;
 
+  margin: 1rem;
   width: 75%;
-
   @include landscape {
     width: 50%;
   }
+
+  background: getDark(-1);
+  border: 2px solid getDark(-1.5);
 }
 
 .imageUploader {
