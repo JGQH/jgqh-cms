@@ -22,9 +22,9 @@ function Dynamic({ id, URL }:dynamicQuery) {
           <div>
             <p>{id}</p>
           </div>
-          {<div>
+          <div>
             <JButton onClick={() => copyToClipboard(id)}>Copy to Clipboard</JButton>
-          </div>}
+          </div>
         </div>
       </div>
       <div className={styles.editorField}>

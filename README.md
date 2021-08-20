@@ -13,7 +13,7 @@ NextJS to be the CMS / Redirecter for other projects
 This project is a TypeScript introduction to use Supabase for managing content of other projects. This project will allow me to set redirect for especific endpoints, and create andAPI to get the values from the database created in Supabase.
 
 ## Technologies
-- NodeJS v16.5.0
+- NodeJS v16.6.2
 
 ## Illustrations
 - ***\*No image yet\****

@@ -7,7 +7,7 @@ import { createValues } from '@Store'
 import styles from '@Styles/Modal.module.scss'
 import { endpointsTypes } from '@Types'
 
-const endpointsList = [endpointsTypes.STATIC, endpointsTypes.DYNAMIC, endpointsTypes.JSON]
+const endpointsList = [endpointsTypes.STATIC, endpointsTypes.DYNAMIC, endpointsTypes.JSON, endpointsTypes.IMAGES]
 
 function Create() {
   const [ index, setIndex ] = useState<number>(0)

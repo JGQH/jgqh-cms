@@ -25,9 +25,9 @@ function Static({ id, URL, Parameters } : staticQuery) {
           <div>
             <p>{id}</p>
           </div>
-          {<div>
+          <div>
             <JButton onClick={() => copyToClipboard(id)}>Copy to Clipboard</JButton>
-          </div>}
+          </div>
         </div>
       </div>
       <div className={styles.editorField}>

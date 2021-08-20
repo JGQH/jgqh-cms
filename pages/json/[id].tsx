@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import JButton from '@Components/JButton'
 import useAsync from '@Hooks/useAsync'
 import useClipboard from '@Hooks/useClipboard'
@@ -5,7 +6,6 @@ import Editor from '@Routing/Editor'
 import { setValues } from '@Store'
 import styles from '@Styles/Editor.module.scss'
 import type { Dictionary, jsonQuery } from '@Types'
-import { useState } from 'react'
 
 function Json({ id, Value }:jsonQuery) {
   const { copyToClipboard } = useClipboard()
@@ -22,9 +22,9 @@ function Json({ id, Value }:jsonQuery) {
           <div>
             <p>{id}</p>
           </div>
-          {<div>
+          <div>
             <JButton onClick={() => copyToClipboard(id)}>Copy to Clipboard</JButton>
-          </div>}
+          </div>
         </div>
       </div>
       <div className={styles.editorField}>
@@ -46,5 +46,5 @@ function Json({ id, Value }:jsonQuery) {
 }
 
 export default function DoJson() {
-  return <Editor<jsonQuery> Content={Json} endpoint={'Json'} />
+  return <Editor<jsonQuery> Content={Json} endpoint='Json' />
 }

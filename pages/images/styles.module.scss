@@ -1,0 +1,17 @@
+@use 'styles/utilities' as *;
+
+.imageVisualizer {
+  aspect-ratio: 16/9;
+
+  width: 75%;
+
+  @include landscape {
+    width: 50%;
+  }
+}
+
+.imageUploader {
+  input[type=file] {
+    display: none;
+  }
+}
