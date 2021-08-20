@@ -2,6 +2,7 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import JButton from '@Components/JButton'
 import useAsync from '@Hooks/useAsync'
+import useFile from '@Hooks/useFile'
 import useClipboard from '@Hooks/useClipboard'
 import Editor from '@Routing/Editor'
 import { getImage, updateImage } from 'lib/supabase/StorageHandler'
@@ -11,36 +12,25 @@ import type { imageQuery } from '@Types'
 
 function Images({ id }:imageQuery) {
   const { copyToClipboard } = useClipboard()
+
   const input = useRef<HTMLInputElement>(null)
-  const [ url, setUrl ] = useState<string | null>(null)
-  const [ file, setFile ] = useState<File | null>(null)
-  const [ loadImage, imgValue ] = useAsync(() => getImage(id))
-  const [ execute, value ] = useAsync(() => updateImage(id, file))
+  const { stringValue, fileValue, updateFile } = useFile()
+
+  const [ execute, value ] = useAsync(() => updateImage(id, fileValue))
+  const [ loadImage, loadValue ] = useAsync(async () => {
+    const img = await getImage(id)
+    updateFile(img)
+  })
 
   useEffect(() => {
     loadImage()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    if(imgValue.status === 'success') {
-      setUrl(imgValue.response)
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [imgValue.status])
-
   function setImage(e:ChangeEvent<HTMLInputElement>){
     if(e.target.files) {
       const file = e.target.files[0]
-      
-      if(['image/gif', 'image/jpeg', 'image/png'].includes(file.type)) {
-        const reader = new FileReader()
-        reader.onload = () => {
-          setUrl(reader.result as string | null)
-          setFile(file)
-        }
-        reader.readAsDataURL(file)
-      }
+      updateFile(file)
     }
   }
 
@@ -64,12 +54,15 @@ function Images({ id }:imageQuery) {
           <h1>Image:</h1>
         </div>
         <div className={styles.fieldContent}>
-          
           <div className={imagesStyles.imageVisualizer}>
-            {url ?
-            <Image src={url} layout='fill' alt={id} />
+            {stringValue ?
+            <Image src={stringValue} layout='fill' alt={id} />
             :
-            (imgValue.status === 'success') && <Image src={imgValue.response} layout='fill' alt={id} />}
+            <>
+              {loadValue.status === 'idle' && <p>Waiting for image fetching to start...</p>}
+              {loadValue.status === 'pending' && <p>Loading image...</p>}
+              {loadValue.status === 'error' && <p onClick={loadImage}>There&apos;s been an error ({loadValue.error}). Click here to attempt reload.</p>}
+            </>}
           </div>
           <div className={imagesStyles.imageUploader}>
             <JButton onClick={() => input.current?.click()}>Upload Image</JButton>
@@ -78,7 +71,7 @@ function Images({ id }:imageQuery) {
         </div>
       </div>
       <div className={styles.editorActions}>
-        <JButton onClick={execute} disabled={!(file && value.status !== 'pending')}>Update</JButton>
+        <JButton onClick={execute} disabled={value.status === 'pending'}>Update</JButton>
         {value.status === 'pending' && <p>Updating values...</p>}
         {value.status === 'success' && <p>Values successfully updated.</p>}
         {value.status === 'error' && <p>There&apos;s been an error ({value.error})</p>}

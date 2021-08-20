@@ -1,16 +1,12 @@
 import Supabase from './Supabase'
 
-export async function getImage(id:string):Promise<string> {
+export async function getImage(id:string) {
   const { data, error } = await Supabase.storage.from('images').download(id)
 
   if (error) throw error
   if(!data) throw new Error('Image is null')
 
-  return await new Promise(resolve => {
-    const reader = new FileReader()
-    reader.onload = () => resolve(reader.result as string)
-    reader.readAsDataURL(data)
-  })
+  return data as File
 }
 
 export async function updateImage(id:string, image:File | null) {
