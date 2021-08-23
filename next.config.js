@@ -1,4 +1,5 @@
 const { join } = require('path')
+const isProduction = process.env.NODE_ENV === 'production'
 
 module.exports = {
   sassOptions: {
@@ -9,5 +10,6 @@ module.exports = {
   images: {
     loader: 'imgix',
     path: ''
-  }
+  },
+  basePath: (isProduction ? '/jgqh-cms' : '')
 }
