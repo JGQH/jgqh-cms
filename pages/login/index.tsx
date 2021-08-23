@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Head from 'next/head'
 import Router from 'next/router'
 import Redirecter from '@Routing/Redirecter'
 import { useAuth } from '@Auth'
@@ -14,6 +15,9 @@ function Login() {
 
   return (
     <div className={styles.modalPage}>
+      <Head>
+        <title>Login - Endpoint CMS</title>
+      </Head>
       <div className={styles.modalContainer}>
         <div className={styles.modalTitle}>
           <h1>Login Form</h1>

@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import Head from 'next/head'
 import Router from 'next/router'
 import { useAuth } from '@Auth'
 import EndpointsHandler from '@Components/EndpointsHandler'
@@ -19,6 +20,9 @@ export default function Home() {
 
   return (
     <div className={styles.endpointsVisualizer}>
+      <Head>
+        <title>Endpoints CMS</title>
+      </Head>
       <div className={styles.endpointsContainer}>
         {value.status === 'idle' &&
           <p>Attempting to load your endpoints...</p>}
@@ -34,7 +38,7 @@ export default function Home() {
           Reload
         </JButton>
         {user &&
-        <JButton onClick={() => Router.push('/')} disabled={!(value.status === 'success')}>
+        <JButton onClick={() => Router.push('/create')} disabled={!(value.status === 'success')}>
           Add Endpoint
         </JButton>}
       </div>

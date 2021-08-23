@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Head from 'next/head'
 import JButton from '@Components/JButton'
 import useAsync from '@Hooks/useAsync'
 import useClipboard from '@Hooks/useClipboard'
@@ -14,6 +15,9 @@ function Dynamic({ id, URL }:dynamicQuery) {
 
   return (
     <div className={styles.editorVisualizer}>
+      <Head>
+        <title>Dynamic Endpoint - {id}</title>
+      </Head>
       <div className={styles.editorField}>
         <div className={styles.fieldTitle}>
           <h1>ID:</h1>

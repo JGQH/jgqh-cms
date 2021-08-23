@@ -1,5 +1,6 @@
-import Router from 'next/router'
 import { useState } from 'react'
+import Router from 'next/router'
+import Head from 'next/head'
 import JButton from '@Components/JButton'
 import useAsync from '@Hooks/useAsync'
 import Redirecter from '@Routing/Redirecter'
@@ -17,6 +18,9 @@ function Create() {
 
   return (
     <div className={styles.modalPage}>
+      <Head>
+        <title>Create - Endpoint CMS</title>
+      </Head>
       <div className={styles.modalContainer}>
         <div className={styles.modalTitle}>
           <h1>Create Endpoint</h1>

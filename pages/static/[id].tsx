@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Head from 'next/head'
 import JButton from '@Components/JButton'
 import useAsync from '@Hooks/useAsync'
 import useJson from '@Hooks/useJson'
@@ -17,6 +18,9 @@ function Static({ id, URL, Parameters } : staticQuery) {
 
   return (
     <div className={styles.editorVisualizer}>
+      <Head>
+        <title>Static Endpoint - {id}</title>
+      </Head>
       <div className={styles.editorField}>
         <div className={styles.fieldTitle}>
           <h1>ID:</h1>

@@ -1,4 +1,5 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import Head from 'next/head'
 import Image from 'next/image'
 import JButton from '@Components/JButton'
 import useAsync from '@Hooks/useAsync'
@@ -36,6 +37,9 @@ function Images({ id }:imageQuery) {
 
   return (
     <div className={styles.editorVisualizer}>
+      <Head>
+        <title>Images Endpoint - {id}</title>
+      </Head>
       <div className={styles.editorField}>
         <div className={styles.fieldTitle}>
           <h1>ID:</h1>

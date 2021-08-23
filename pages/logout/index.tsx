@@ -1,7 +1,8 @@
+import { useEffect } from 'react'
+import Head from 'next/head'
 import { useAuth } from '@Auth'
 import useAsync from '@Hooks/useAsync'
 import Redirecter from '@Routing/Redirecter'
-import { useEffect } from 'react'
 
 function Logout() {
   const { signOut } = useAuth()
@@ -17,6 +18,9 @@ function Logout() {
 
 export default function DoLogout() {
   return <Redirecter userOnly={true} redirectTo={'/'}>
+    <Head>
+      <title>Logout - Endpoint CMS</title>
+    </Head>
     <Logout />
   </Redirecter>
 }
