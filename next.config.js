@@ -5,5 +5,9 @@ module.exports = {
     includePaths: [
       join(__dirname, 'styles')
     ]
+  },
+  images: {
+    loader: 'imgix',
+    path: ''
   }
 }
