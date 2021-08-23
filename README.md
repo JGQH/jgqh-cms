@@ -10,15 +10,18 @@ NextJS to be the CMS / Redirecter for other projects
 - [To-Do](#to-do)
 
 ## Introduction
-This project is a TypeScript introduction to use Supabase for managing content of other projects. This project will allow me to set redirect for especific endpoints, and create andAPI to get the values from the database created in Supabase.
+This project is a TypeScript introduction to use Supabase for managing content of other projects. This project will allow me to:
+- Set redirect for especific URLs
+- Host information of other projects in JSON format
+- Upload images
 
 ## Technologies
 - React v17.0.2
 - [Next](https://www.npmjs.com/package/next) v11.0.1
 - [Supabase](https://www.npmjs.com/package/@supabase/supabase-js) v1.20.0
 ## Illustrations
-- ***\*No image yet\****
+| HomePage (After Login) | Example of an 'endpoint' |
+| :--------------------: | :----------------------: |
+| ![HomePage](./readme/readme_1.png) | ![Example](./readme/readme_2.png)
 
 ## To-Do
-- API Endpoints
-- Connect API to Supabase
