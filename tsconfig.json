@@ -28,9 +28,8 @@
         "lib/routes/*"
       ],
       "@Components/*":[
-        "components/EndpointsVisualizer/*",
-        "components/JButton/*",
-        "components/JInput/*"
+        "components/EndpointsHandler/*",
+        "components/JButton/*"
       ],
       "@Hooks/*":[
         "lib/hooks/*"

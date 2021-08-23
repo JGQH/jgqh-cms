@@ -1,10 +1,10 @@
 import { useAuth } from '@Auth'
+import Router from 'next/router'
 import useAsync from '@Hooks/useAsync'
 import JButton from '@Components/JButton'
-import type { endpointsTypes } from '@Types'
 import { endpointsDict, endpointsData, deleteValues } from '@Store'
 import styles from './endpointsHandler.module.scss'
-import Router from 'next/router'
+import type { endpointsTypes } from '@Types'
 
 interface endpointsHandlerProps {
   response: endpointsDict
